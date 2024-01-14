@@ -68,7 +68,9 @@ for lr in learning_rates:
 
         ## Model and Optimizer
         
-        model = UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
+        # model = UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
+        model = smp.Unet(encoder_name='efficientnet-b1', encoder_weights='imagenet',
+                         in_channels=3, classes=3).to(device)
         
         model = load(model, device=device, reset = reset, load_path = load_path)
         
