@@ -14,6 +14,8 @@ The dataset used in this project consists of IMRI scans from patients diagnosed 
 
 link : https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentation
 
+## IMRI scans 
+### Red : large_bowel -- Green : small_bowel -- Blue : stomach
 ![output-onlinegiftools-ezgif com-optimize](https://github.com/Se2007/Medical-Image-Segmentation/assets/112750879/5b261c39-4642-41e0-9b45-f14e5d31e37f)
 
 ## Methodology
