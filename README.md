@@ -31,3 +31,5 @@ link : https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentatio
 
 2. Dataset and Trained Models:
   To request a pre-processed dataset and trained models, simply send an email with specific details, such as your intended use and license type.
+
+![video](https://github.com/Se2007/Medical-Image-Segmentation/assets/112750879/c62d2d65-17f3-4670-b008-8457be5af2e6)
