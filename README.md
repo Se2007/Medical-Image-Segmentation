@@ -14,6 +14,8 @@ The dataset used in this project consists of IMRI scans from patients diagnosed 
 
 link : https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentation
 
+![output-onlinegiftools-ezgif com-optimize](https://github.com/Se2007/Medical-Image-Segmentation/assets/112750879/5b261c39-4642-41e0-9b45-f14e5d31e37f)
+
 ## Methodology
 
 - **Deep Learning Models:** Unet, Unet++, Deeplabv3
@@ -32,4 +34,3 @@ link : https://www.kaggle.com/competitions/uw-madison-gi-tract-image-segmentatio
 2. Dataset and Trained Models:
   To request a pre-processed dataset and trained models, simply send an email with specific details, such as your intended use and license type.
 
-![video](https://github.com/Se2007/Medical-Image-Segmentation/assets/112750879/c62d2d65-17f3-4670-b008-8457be5af2e6)
