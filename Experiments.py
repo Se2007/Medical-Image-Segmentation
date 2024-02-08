@@ -7,7 +7,7 @@ from torchmetrics.aggregation import MeanMetric
 import segmentation_models_pytorch as smp
 
 from benchmark import dataset
-from Unet import unet
+from methods import unet, unetplusplus
 
 from prettytable import PrettyTable
 from colorama import Fore, Style, init
@@ -15,7 +15,7 @@ from colorama import Fore, Style, init
 
 ## Arguments
 device = 'cpu'
-load_path = './unet.pth'
+load_path = './saved_model/unet-efficientnet-encoder.pth'
 
 
 def segment(image, model):
@@ -30,7 +30,11 @@ test_loader = dataset.UW_madison(root='./benchmark/UW_madison_dataset', mode='te
 
 ## Load Model
 
-model = unet.UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
+# model = unet.UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
+model = unet.pre_train_unet().to(device)
+# model = unetplusplus.UnetPlusPlus(encoder_name='efficientnet-b3').to(device)
+# model = unetplusplus.UnetPlusPlus(encoder_name='resnet18').to(device)
+
 
 sate = torch.load(load_path)
 model.load_state_dict(sate['state_dict'])

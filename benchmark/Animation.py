@@ -3,14 +3,17 @@ import cv2
 import pandas as pd 
 import numpy as np
 from PIL import Image
+import imageio
 import glob
 from torchvision import transforms as T
 from torchvision.transforms.functional import to_tensor
 
-root = './UW_madison_dataset/train/case22/case22_day0/scans/slice_*.png'
+# root = './UW_madison_dataset/train/case22/case22_day0/scans/slice_*.png'
+root = './UW_madison_dataset/train/case33/case33_day0/scans/slice_*.png'
+
 
 list_path = glob.glob(root)
-
+image_lst = []
 
 
 def rle2mask(image_size, segments):
@@ -41,7 +44,6 @@ for path in list_path :
     sample = train_df[train_df['id'] == id]
     # print(sample['height'].values, sample['weidth'], len(sample))
     if len(sample) > 0 :
-        # print(12121212)
         image = image_trasform(Image.open(path))
         mask = mask_trasform(rle2mask([sample.iloc[0]['height'], sample.iloc[0]['weidth']], [sample.iloc[0]['large_bowel'], sample.iloc[0]['small_bowel'], sample.iloc[0]['stomach']]))
 
@@ -49,6 +51,11 @@ for path in list_path :
 
     else : 
         out = image_trasform(Image.open(path)).permute(1,2,0).numpy()
+       
+    frame_rgb = (out * 255).astype(np.uint8)
+    image_lst.append(frame_rgb)
 
     cv2.imshow('Red : large_bowel -- Green : small_bowel -- Blue : stomach', out)
     cv2.waitKey(100)
+
+imageio.mimsave('./v.gif', image_lst)

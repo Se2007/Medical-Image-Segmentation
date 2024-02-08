@@ -24,8 +24,8 @@ load_path = './saved_model/unet-efficientnet-encoder.pth'  #
 ## Load Model
 
 # model = unet.UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
-model = smp.Unet(encoder_name='efficientnet-b1', encoder_weights='imagenet',
-                in_channels=3, classes=3).to(device)
+
+model = unet.pre_train_unet().to(device)
 
 sate = torch.load(load_path)
 model.load_state_dict(sate['state_dict'])
@@ -45,7 +45,7 @@ output = segment(image, model)
 print('\nRed ->> large_bowel -- Green ->> small_bowel -- Blue ->> stomach')
 
 plt.title('Red : large_bowel -- Green : small_bowel -- Blue : stomach')
-grid_image = make_grid([norm(image).squeeze(0) + norm(mask).squeeze(0) * 0.55, norm(image).squeeze(0), norm(image).squeeze(0) + output.squeeze(0) * 0.75], nrow=3)
+grid_image = make_grid([norm(image).squeeze(0) + norm(mask).squeeze(0) * 0.55, norm(image).squeeze(0), norm(image).squeeze(0) + output.squeeze(0) * 0.55], nrow=3)
 plt.imshow(grid_image.permute(1,2,0))
 plt.axis('off')
 plt.show()

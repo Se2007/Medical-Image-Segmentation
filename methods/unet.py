@@ -56,6 +56,9 @@ class UNet(nn.Module):
         return seg
 
 
+def pre_train_unet(in_channels=3, classes=3, encoder_name='efficientnet-b1'):
+    return smp.Unet(encoder_name=encoder_name, encoder_weights='imagenet',
+                    in_channels=in_channels, classes=classes)
 
 
 

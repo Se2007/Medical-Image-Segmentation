@@ -3,10 +3,13 @@ from torch import nn
 from torch import optim
 from torchmetrics import Dice
 import segmentation_models_pytorch as smp
+from loss.loss import Criterion
 
 from benchmark import dataset
 from utils import train_one_epoch
-from Unet.unet import UNet
+from methods.unet import UNet, pre_train_unet
+from methods.unetplusplus import UnetPlusPlus
+from methods.deeplab import DeepLab
 
 from prettytable import PrettyTable
 from colorama import Fore, Style, init
@@ -34,13 +37,13 @@ device = 'cuda'
 num_epochs = 5
 reset = True
 
-train_loader = dataset.UW_madison(root='./benchmark/UW_madison_dataset', mode='train', mini=True, memory=True)(batch_size=32)
+train_loader = dataset.UW_madison(root='./benchmark/UW_madison_dataset', mode='train', mini=True, memory=False)(batch_size=20)
 
 load_path = './model/'+'name'+ ".pth"
 
 
-learning_rates = [1, 0.9, 0.5, 0.3, 0.1, 0.01, 0.003]
-weight_decays = [1e-3, 1e-4, 1e-5, 5e-5, 1e-6]
+learning_rates = [0.5]
+weight_decays = [1e-4, 1e-5, 1e-6]
 
 ## preprocessing for makeing the table and finding the minimums
 
@@ -58,7 +61,8 @@ table.field_names = ["LR \ WD"] + [f"WD {i}" for i in weight_decays]
 ## Loss function and Metric
 
 metric = Dice().to(device)
-loss_fn = smp.losses.DiceLoss(mode='multilabel')
+# loss_fn = smp.losses.DiceLoss(mode='multilabel')
+loss_fn = Criterion()
 
 
 for lr in learning_rates:
@@ -69,8 +73,12 @@ for lr in learning_rates:
         ## Model and Optimizer
         
         # model = UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
-        model = smp.Unet(encoder_name='efficientnet-b1', encoder_weights='imagenet',
-                         in_channels=3, classes=3).to(device)
+
+        model = pre_train_unet().to(device)
+
+        # model = UnetPlusPlus(encoder_name='resnet18').to(device)
+
+        # model = DeepLab(encoder_name='efficientnet-b1').to(device)
         
         model = load(model, device=device, reset = reset, load_path = load_path)
         
