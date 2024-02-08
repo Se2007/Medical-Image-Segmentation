@@ -1,0 +1,12 @@
+torch
+torchvision
+torchmetrics
+segmentation_models_pytorch
+
+matplotlib
+pandas
+numpy
+wandb
+tqdm
+Pillow
+opencv-python
