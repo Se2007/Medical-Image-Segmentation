@@ -39,10 +39,10 @@ reset = True
 
 train_loader = dataset.UW_madison(root='./benchmark/UW_madison_dataset', mode='train', mini=True, memory=False)(batch_size=20)
 
-load_path = './model/'+'name'+ ".pth"
+load_path = './saved_model/'+'unet-with-dropout'+ ".pth"
 
 
-learning_rates = [0.5]
+learning_rates = [0.6]
 weight_decays = [1e-4, 1e-5, 1e-6]
 
 ## preprocessing for makeing the table and finding the minimums
@@ -61,6 +61,7 @@ table.field_names = ["LR \ WD"] + [f"WD {i}" for i in weight_decays]
 ## Loss function and Metric
 
 metric = Dice().to(device)
+
 # loss_fn = smp.losses.DiceLoss(mode='multilabel')
 loss_fn = Criterion()
 
@@ -74,11 +75,11 @@ for lr in learning_rates:
         
         # model = UNet(n_channels=3, n_classes=3, bilinear=False).to(device)
 
-        model = pre_train_unet().to(device)
+        # model = pre_train_unet(encoder_name='timm-regnety_008').to(device)
 
         # model = UnetPlusPlus(encoder_name='resnet18').to(device)
 
-        # model = DeepLab(encoder_name='efficientnet-b1').to(device)
+        model = DeepLab(encoder_name='efficientnet-b1').to(device)
         
         model = load(model, device=device, reset = reset, load_path = load_path)
         

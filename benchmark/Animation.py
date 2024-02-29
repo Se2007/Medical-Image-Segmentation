@@ -3,7 +3,7 @@ import cv2
 import pandas as pd 
 import numpy as np
 from PIL import Image
-import imageio
+# import imageio
 import glob
 from torchvision import transforms as T
 from torchvision.transforms.functional import to_tensor
@@ -58,4 +58,6 @@ for path in list_path :
     cv2.imshow('Red : large_bowel -- Green : small_bowel -- Blue : stomach', out)
     cv2.waitKey(100)
 
-imageio.mimsave('./v.gif', image_lst)
+
+## for making the Gif, have to install imageio
+# imageio.mimsave('./v.gif', image_lst)

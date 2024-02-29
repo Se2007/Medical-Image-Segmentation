@@ -104,7 +104,7 @@ def save(save_path, model, optimizer, loss_fn):
     state = {
         'state_dict': model.state_dict(),
         'optimizer': optimizer.state_dict(),
-        'loss_fun' : loss_fn.state_dict()
+        # 'loss_fun' : loss_fn.state_dict()
     }
 
     torch.save(state, save_path)
